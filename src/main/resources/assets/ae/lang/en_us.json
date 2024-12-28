@@ -7,5 +7,5 @@
 
   "category.mcr.spells": "Arcana Engine Spells",
 
-  "ae.no_id_error": "Unable to build spell. No name was provided. Skipping."
+  "ae.no_id_error": "Unable to build spell. No spell id was provided. Skipping."
 }

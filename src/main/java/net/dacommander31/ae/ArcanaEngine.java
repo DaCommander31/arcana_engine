@@ -5,6 +5,7 @@ import net.dacommander31.ae.spells.SpellBuilder;
 import net.dacommander31.ae.util.SpellKeybinds;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

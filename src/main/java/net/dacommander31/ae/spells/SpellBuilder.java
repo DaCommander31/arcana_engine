@@ -5,11 +5,11 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class SpellBuilder {
-    private Identifier id;
-    private String name;
-    private String desc = "";
-    private float power = 1f;
-    private int cooldown = 0;
+    private final Identifier id;
+    private final String name;
+    private final String desc;
+    private final float power;
+    private final int cooldown;
 
     private SpellBuilder(Builder builder) {
         this.id = builder.id;
