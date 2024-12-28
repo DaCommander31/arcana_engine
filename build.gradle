@@ -54,6 +54,15 @@ dependencies {
 
 }
 
+publishing {
+	publications {
+		maven(MavenPublication) {
+			from components.java
+		}
+	}
+}
+
+
 processResources {
 	inputs.property "version", project.version
 
