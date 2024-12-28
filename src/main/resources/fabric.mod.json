@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "arcana_engine",
+	"version": "${version}",
+	"name": "Arcana Engine",
+	"description": "A modern take on spell engines, including many new features for modding and datapack support!",
+	"authors": [
+		"DaCommander31"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT",
+	"icon": "assets/ae/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.dacommander31.ae.ArcanaEngine"
+		],
+		"fabric-datagen": [
+			"net.dacommander31.ae.ArcanaEngineDataGenerator"
+		]
+	},
+	"mixins": [
+		"arcana_engine.mixins.json"
+	],
+	"depends": {
+		"fabricloader": "*",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
