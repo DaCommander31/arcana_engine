@@ -8,34 +8,34 @@ import org.lwjgl.glfw.GLFW;
 
 public class SpellKeybinds {
     public static KeyBinding activation1Keybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "key.mcr.activation1",
+            "key.ae.activation1",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_V,
-            "category.mcr.spells"
+            "category.ae.spells"
     ));
     public static KeyBinding activation2Keybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "key.mcr.activation2",
+            "key.ae.activation2",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_G,
-            "category.mcr.spells"
+            "category.ae.spells"
     ));
     public static KeyBinding activation3Keybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "key.mcr.activation3",
+            "key.ae.activation3",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_Y,
-            "category.mcr.spells"
+            "category.ae.spells"
     ));
     public static KeyBinding activation4Keybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "key.mcr.activation4",
+            "key.ae.activation4",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_H,
-            "category.mcr.spells"
+            "category.ae.spells"
     ));
     public static KeyBinding activation5Keybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "key.mcr.activation5",
+            "key.ae.activation5",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_B,
-            "category.mcr.spells"
+            "category.ae.spells"
     ));
 
     public static void registerKeybinds() {

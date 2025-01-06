@@ -1,11 +1,9 @@
 {
-  "key.mcr.activation1": "Activation 1",
-  "key.mcr.activation2": "Activation 2",
-  "key.mcr.activation3": "Activation 3",
-  "key.mcr.activation4": "Activation 4",
-  "key.mcr.activation5": "Activation 5",
+  "key.ae.activation1": "Activation 1",
+  "key.ae.activation2": "Activation 2",
+  "key.ae.activation3": "Activation 3",
+  "key.ae.activation4": "Activation 4",
+  "key.ae.activation5": "Activation 5",
 
-  "category.mcr.spells": "Arcana Engine Spells",
-
-  "ae.no_id_error": "Unable to build spell. No spell id was provided. Skipping."
+  "category.ae.spells": "Arcana Engine Spells"
 }
