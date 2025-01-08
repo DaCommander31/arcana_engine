@@ -2,17 +2,19 @@ package net.dacommander31.ae.util;
 
 import net.dacommander31.ae.ArcanaEngine;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.text.Text;
 
 public class SpellBuilder {
     private final Identifier id;
-    private final String name;
+    private final Text name;
     private final String desc;
     private final float power;
+    private final int duration;
     private final int cooldown;
-    private final float delta;
-    private final float range;
     private final float areaOfEffect;
-    private final float areaOfEffectChange;
+    private final float areaGrowthPerTick;
+    private final Vec3d offset;
     private final boolean isTickable;
 
     private SpellBuilder(Builder builder) {
@@ -20,31 +22,31 @@ public class SpellBuilder {
         this.name = builder.name;
         this.desc = builder.desc;
         this.power = builder.power;
+        this.duration = builder.duration;
         this.cooldown = builder.cooldown;
-        this.delta = builder.delta;
-        this.range = builder.range;
         this.areaOfEffect = builder.areaOfEffect;
-        this.areaOfEffectChange = builder.areaOfEffectChange;
+        this.areaGrowthPerTick = builder.areaGrowthPerTick;
+        this.offset = builder.offset;
         this.isTickable = builder.isTickable;
     }
 
     public static class Builder {
         private final Identifier id;
-        private String name;
+        private Text name;
         private String desc = "";
         private float power = 1f;
+        private int duration = 100;
         private int cooldown = 20;
-        private float delta = 0.1f;
-        private float range  = 10f;
         private float areaOfEffect = 0.5f;
-        private float areaOfEffectChange = 0f;
+        private float areaGrowthPerTick = 0f;
+        private Vec3d offset = Vec3d.ZERO;
         private boolean isTickable = false;
 
         public Builder(Identifier spellId) {
             this.id = spellId;
         }
 
-        public Builder setSpellName(String name) {
+        public Builder setSpellName(Text name) {
             this.name = name;
             return this;
         }
@@ -59,18 +61,13 @@ public class SpellBuilder {
             return this;
         }
 
+        public Builder setDuration(int duration) {
+            this.duration = duration;
+            return this;
+        }
+
         public Builder setCooldown(int cooldownInTicks) {
             this.cooldown = cooldownInTicks;
-            return this;
-        }
-
-        public Builder setDelta(float delta) {
-            this.delta = delta;
-            return this;
-        }
-
-        public Builder setRange(float range) {
-            this.range = range;
             return this;
         }
 
@@ -79,8 +76,13 @@ public class SpellBuilder {
             return this;
         }
 
-        public Builder setAreaOfEffectChange(float areaOfEffectChange) {
-            this.areaOfEffectChange = areaOfEffectChange;
+        public Builder setAreaGrowthPerTick(float areaGrowthPerTick) {
+            this.areaGrowthPerTick = areaGrowthPerTick;
+            return this;
+        }
+
+        public Builder setOffset(Vec3d offset) {
+            this.offset = offset;
             return this;
         }
 
@@ -91,8 +93,8 @@ public class SpellBuilder {
 
         public SpellBuilder build() {
             if (this.id != null) {
-                if (this.name == null || this.name.isEmpty()) {
-                    this.name = this.id.toString();
+                if (this.name == null) {
+                    this.name = Text.literal(this.id.toString());
                 }
                 return new SpellBuilder(this);
             } else {
@@ -103,39 +105,39 @@ public class SpellBuilder {
     }
 
     public Identifier getSpellId() {
-        return id;
+        return this.id;
     }
 
     public String getSpellName() {
-        return name;
+        return this.name.getString();
     }
 
     public String getDescription() {
-        return desc;
+        return this.desc;
     }
 
     public float getPowerLevel() {
-        return power;
+        return this.power;
+    }
+
+    public int getDuration() {
+        return this.duration;
     }
 
     public int getCooldown() {
-        return cooldown;
-    }
-
-    public float getDelta() {
-        return delta;
-    }
-
-    public float getRange() {
-        return range;
+        return this.cooldown;
     }
 
     public float getAreaOfEffect() {
-        return areaOfEffect;
+        return this.areaOfEffect;
     }
 
-    public float getAreaOfEffectChange() {
-        return areaOfEffectChange;
+    public float getAreaGrowthPerTick() {
+        return this.areaGrowthPerTick;
+    }
+
+    public Vec3d getOffset() {
+        return this.offset;
     }
 
     public boolean isTickable() {

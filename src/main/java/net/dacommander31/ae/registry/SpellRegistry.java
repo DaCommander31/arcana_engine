@@ -28,6 +28,12 @@ public class SpellRegistry {
         spellBehaviorReverseMap.put(spellBehavior, spellId);
     }
 
+
+
+    public static Map<Identifier, SpellBuilder> getRegistry() {
+        return spellBuilderMap;
+    }
+
     public static SpellBuilder getSpell(Identifier spellId) throws SpellNotFoundException {
         SpellBuilder spell = spellBuilderMap.get(spellId);
         if (spell == null) {
