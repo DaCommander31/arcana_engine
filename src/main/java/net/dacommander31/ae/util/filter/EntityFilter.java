@@ -1,4 +1,4 @@
-package net.dacommander31.ae.util;
+package net.dacommander31.ae.util.filter;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -30,7 +30,7 @@ public class EntityFilter {
     }
 
     public EntityFilter ignoreEntity(Entity... entities) {
-        return ignoreEntity(List.of(entities));
+        return this.ignoreEntity(List.of(entities));
     }
 
     public EntityFilter ignoreEntity(List<Entity> entities) {
@@ -40,7 +40,7 @@ public class EntityFilter {
 
     @SafeVarargs
     public final EntityFilter ignoreEntityTag(TagKey<EntityType<?>>... entityTags) {
-        return ignoreEntityTag(List.of(entityTags));
+        return this.ignoreEntityTag(List.of(entityTags));
     }
 
     public EntityFilter ignoreEntityTag(List<TagKey<EntityType<?>>> entityTags) {
@@ -50,7 +50,7 @@ public class EntityFilter {
 
     @SafeVarargs
     public final EntityFilter ignoreEntityCondition(Predicate<Entity>... conditions) {
-        return ignoreEntityCondition(List.of(conditions));
+        return this.ignoreEntityCondition(List.of(conditions));
     }
 
     public EntityFilter ignoreEntityCondition(List<Predicate<Entity>> conditions) {
@@ -59,7 +59,7 @@ public class EntityFilter {
     }
 
     public EntityFilter ignoreEntityUuid(UUID... uuids) {
-        return ignoreEntityUuid(List.of(uuids));
+        return this.ignoreEntityUuid(List.of(uuids));
     }
 
     public EntityFilter ignoreEntityUuid(List<UUID> uuids) {
@@ -83,29 +83,29 @@ public class EntityFilter {
         return this.ignoredUuids.contains(uuid);
     }
 
-    public boolean shouldIgnoreEntity(Entity entity) {
+    public boolean shouldIncludeEntity(Entity entity) {
         if (this.ignored.isEmpty() && this.ignoredTags.isEmpty() && this.ignoredConditions.isEmpty() && this.ignoredUuids.isEmpty()) {
+            return true;
+        }
+
+        if (this.isEntityIgnored(entity)) {
             return false;
         }
 
-        if (isEntityIgnored(entity)) {
-            return true;
-        }
-
-        if (isEntityInIgnoredTags(entity)) {
-            return true;
+        if (this.isEntityInIgnoredTags(entity)) {
+            return false;
         }
 
         for (Predicate<Entity> condition : ignoredConditions) {
             if (condition.test(entity)) {
-                return true;
+                return false;
             }
         }
 
-        if (isEntityUuidIgnored(entity.getUuid())) {
-            return true;
+        if (this.isEntityUuidIgnored(entity.getUuid())) {
+            return false;
         }
 
-        return false;
+        return true;
     }
 }

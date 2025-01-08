@@ -16,12 +16,14 @@ public class TickableSpell {
     private final SpellType spellType;
     private final SpellBehavior spellBehavior;
     private int ticksElapsed;
+    private double currentAreaOfEffect;
 
     public TickableSpell(Entity caster, SpellBuilder spellBuilder) {
         this.caster = caster;
         this.spellBuilder = spellBuilder;
         this.offset = this.spellBuilder.getOffset();
         this.ticksElapsed = 0;
+        this.currentAreaOfEffect = 0;
         try {
             this.spellType = SpellRegistry.getSpellType(spellBuilder.getSpellId());
             this.spellBehavior = SpellRegistry.getSpellBehavior(spellBuilder.getSpellId());
@@ -33,7 +35,7 @@ public class TickableSpell {
     public void tick(ServerWorld world) {
         Vec3d origin = caster.getPos().add(offset);
 
-        double currentAreaOfEffect = spellBuilder.getAreaOfEffect() + spellBuilder.getAreaGrowthPerTick() * ticksElapsed;
+        this.currentAreaOfEffect = spellBuilder.getAreaOfEffect() + spellBuilder.getAreaGrowthPerTick() * ticksElapsed;
         List<Entity> targets = spellType.getTargets(origin, world, currentAreaOfEffect);
 
         spellBehavior.setTargets(targets);
@@ -45,6 +47,14 @@ public class TickableSpell {
 
     public boolean isExpired() {
         return ticksElapsed >= spellBuilder.getDuration();
+    }
+
+    public SpellBuilder getSpellBuilder() {
+        return this.spellBuilder;
+    }
+
+    public double getCurrentAreaOfEffect() {
+        return this.currentAreaOfEffect;
     }
 
 }

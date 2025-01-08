@@ -11,6 +11,7 @@ import java.util.Map;
 
 public class SpellRegistry {
     private static final Map<Identifier, SpellBuilder> spellBuilderMap = new HashMap<>();
+    private static final Map<SpellBuilder, Identifier> spellBuilderReverseMap = new HashMap<>();
     private static final Map<Identifier, SpellType> spellTypeMap = new HashMap<>();
     private static final Map<SpellType, Identifier> spellTypeReverseMap = new HashMap<>();
     private static final Map<Identifier, SpellBehavior> spellBehaviorMap = new HashMap<>();
@@ -22,6 +23,7 @@ public class SpellRegistry {
             throw new IllegalArgumentException("Spell ID " + spellId + " is already registered");
         }
         spellBuilderMap.put(spellId, spell);
+        spellBuilderReverseMap.put(spell, spellId);
         spellTypeMap.put(spellId, spellType);
         spellTypeReverseMap.put(spellType, spellId);
         spellBehaviorMap.put(spellId, spellBehavior);

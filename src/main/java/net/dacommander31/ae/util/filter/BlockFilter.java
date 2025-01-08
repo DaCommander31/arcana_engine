@@ -1,4 +1,4 @@
-package net.dacommander31.ae.util;
+package net.dacommander31.ae.util.filter;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -27,7 +27,7 @@ public class BlockFilter {
     }
 
     public BlockFilter addBlockToFilter(Block... blocks) {
-        return addBlockToFilter(List.of(blocks));
+        return this.addBlockToFilter(List.of(blocks));
     }
 
     public BlockFilter addBlockToFilter(Collection<Block> blocks) {
@@ -37,7 +37,7 @@ public class BlockFilter {
 
     @SafeVarargs
     public final BlockFilter addBlockTagToFilter(TagKey<Block>... blockTags) {
-        return addBlockTagToFilter(List.of(blockTags));
+        return this.addBlockTagToFilter(List.of(blockTags));
     }
 
     public BlockFilter addBlockTagToFilter(List<TagKey<Block>> blockTags) {
@@ -47,7 +47,7 @@ public class BlockFilter {
 
     @SafeVarargs
     public final BlockFilter addBlockStateConditionToFilter(Predicate<BlockState>... conditions) {
-        return addBlockStateConditionToFilter(List.of(conditions));
+        return this.addBlockStateConditionToFilter(List.of(conditions));
     }
 
     public BlockFilter addBlockStateConditionToFilter(List<Predicate<BlockState>> conditions) {
@@ -67,32 +67,28 @@ public class BlockFilter {
         return this.blockStateConditionFilter.contains(condition);
     }
 
-    public boolean shouldIgnoreBlock(World world, BlockPos pos) {
+    public boolean shouldIncludeBlock(World world, BlockPos pos) {
         BlockState blockState = world.getBlockState(pos);
         Block block = blockState.getBlock();
 
-        // If all filters are empty, return true (default: ignore all blocks)
         if (filter.isEmpty() && tagFilter.isEmpty() && blockStateConditionFilter.isEmpty()) {
-            return true; // Default to ignoring all blocks
+            return false;
         }
 
-        // Check filter for block types
-        if (!filter.isEmpty() && isBlockInFilter(block)) {
-            return false; // Do not ignore if in filter
+        if (!filter.isEmpty() && this.isBlockInFilter(block)) {
+            return true;
         }
-        if (!tagFilter.isEmpty() && isBlockInTagFilter(block)) {
-            return false; // Do not ignore if in tag filter
+        if (!tagFilter.isEmpty() && this.isBlockInTagFilter(block)) {
+            return true;
         }
 
-        // Check block state conditions for filter
         if (!blockStateConditionFilter.isEmpty()) {
             boolean matchesFilter = blockStateConditionFilter.stream().anyMatch(condition -> condition.test(blockState));
             if (matchesFilter) {
-                return false; // Do not ignore if block state matches filter condition
+                return true;
             }
         }
 
-        // If no conditions match, return true by default (ignore the block)
-        return true;
+        return false;
     }
 }
