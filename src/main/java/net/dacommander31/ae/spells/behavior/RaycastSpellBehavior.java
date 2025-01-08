@@ -65,7 +65,7 @@ public class RaycastSpellBehavior extends SpellBehavior {
 
             for (Entity entity : this.targets) {
                 if (entityFilter.shouldIncludeEntity(entity) && entity.getBoundingBox().contains(currentPosition)) {
-                    spellType.applyEffect(caster, currentPosition, world, entity);
+                    spellType.applyEffect(caster, currentPosition, world, spellBuilder, entity);
                 }
             }
 

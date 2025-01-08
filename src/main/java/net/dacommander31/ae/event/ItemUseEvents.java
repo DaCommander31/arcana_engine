@@ -15,6 +15,8 @@ import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Vec3d;
@@ -37,21 +39,24 @@ public class ItemUseEvents {
         );
 
         SpellBuilder testSpell = new SpellBuilder.Builder(new Identifier("ae", "test"))
+                .setSpellName(Text.literal("Flamethrower"))
+                .setDescription(Text.literal("Creates a stream of fire where you look."))
+                .setDuration(20)
+                .setCooldown(0)
+                .setAreaOfEffect(0.5)
                 .setCooldown(10)
                 .build();
 
         SpellRegistry.registerSpell(testSpell, new DamageSpellType(5f, DamageTypes.MAGIC), new RaycastSpellBehavior(10f, 0.1f, blockFilter, entityFilter, flameParticleData));
 
-        UseItemCallback.EVENT.register(((player, world, hand) ->
+        UseItemCallback.EVENT.register((player, world, hand) ->
         {
             if (player != null) {
                 if (player.getStackInHand(hand).equals(new ItemStack(Items.BLAZE_POWDER))) {
                     SpellManager.addSpell(player, testSpell);
                 }
-                return TypedActionResult.pass(player.getStackInHand(hand));
             }
-            assert false;
-            return TypedActionResult.pass(player.getStackInHand(hand));
-        }));
+            return player != null ? TypedActionResult.pass(player.getStackInHand(hand)) : null;
+        });
     }
 }

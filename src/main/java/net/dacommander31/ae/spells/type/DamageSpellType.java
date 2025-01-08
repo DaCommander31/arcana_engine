@@ -1,5 +1,6 @@
 package net.dacommander31.ae.spells.type;
 
+import net.dacommander31.ae.util.SpellBuilder;
 import net.dacommander31.ae.util.SpellType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -22,7 +23,7 @@ public class DamageSpellType extends SpellType {
         this.damageType = damageType;
     }
     @Override
-    public void applyEffect(Entity caster, Vec3d pos, ServerWorld world, Entity target) {
+    public void applyEffect(Entity caster, Vec3d pos, ServerWorld world, SpellBuilder spellBuilder, Entity target) {
         if (target instanceof LivingEntity entity && entity.canTakeDamage()) {
             DynamicRegistryManager registryManager = world.getRegistryManager();
             RegistryEntry<DamageType> magicDamageEntry = registryManager
@@ -30,7 +31,7 @@ public class DamageSpellType extends SpellType {
                     .getEntry(this.damageType)
                     .orElseThrow(() -> new IllegalStateException("DamageType not found."));
 
-            entity.damage(new DamageSource(magicDamageEntry, caster), damageAmount);
+            entity.damage(new DamageSource(magicDamageEntry, caster), damageAmount * spellBuilder.getPowerLevel());
         }
     }
 }

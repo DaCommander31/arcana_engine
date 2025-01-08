@@ -8,12 +8,12 @@ import net.minecraft.text.Text;
 public class SpellBuilder {
     private final Identifier id;
     private final Text name;
-    private final String desc;
+    private final Text desc;
     private final float power;
     private final int duration;
     private final int cooldown;
-    private final float areaOfEffect;
-    private final float areaGrowthPerTick;
+    private final double areaOfEffect;
+    private final double areaGrowthPerTick;
     private final Vec3d offset;
     private final boolean isTickable;
 
@@ -33,12 +33,12 @@ public class SpellBuilder {
     public static class Builder {
         private final Identifier id;
         private Text name;
-        private String desc = "";
+        private Text desc = Text.empty();
         private float power = 1f;
         private int duration = 100;
         private int cooldown = 20;
-        private float areaOfEffect = 0.5f;
-        private float areaGrowthPerTick = 0f;
+        private double areaOfEffect = 0.5f;
+        private double areaGrowthPerTick = 0f;
         private Vec3d offset = Vec3d.ZERO;
         private boolean isTickable = false;
 
@@ -51,7 +51,7 @@ public class SpellBuilder {
             return this;
         }
 
-        public Builder setDescription(String desc) {
+        public Builder setDescription(Text desc) {
             this.desc = desc;
             return this;
         }
@@ -71,7 +71,7 @@ public class SpellBuilder {
             return this;
         }
 
-        public Builder setAreaOfEffect(float areaOfEffect) {
+        public Builder setAreaOfEffect(double areaOfEffect) {
             this.areaOfEffect = areaOfEffect;
             return this;
         }
@@ -112,7 +112,7 @@ public class SpellBuilder {
         return this.name.getString();
     }
 
-    public String getDescription() {
+    public Text getDescription() {
         return this.desc;
     }
 
@@ -128,11 +128,11 @@ public class SpellBuilder {
         return this.cooldown;
     }
 
-    public float getAreaOfEffect() {
+    public double getAreaOfEffect() {
         return this.areaOfEffect;
     }
 
-    public float getAreaGrowthPerTick() {
+    public double getAreaGrowthPerTick() {
         return this.areaGrowthPerTick;
     }
 

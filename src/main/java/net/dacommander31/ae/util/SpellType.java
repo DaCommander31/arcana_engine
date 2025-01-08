@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class SpellType {
 
-    public abstract void applyEffect(Entity caster, Vec3d pos, ServerWorld world, Entity target);
+    public abstract void applyEffect(Entity caster, Vec3d pos, ServerWorld world, SpellBuilder spellBuilder, Entity target);
 
     public List<Entity> getTargets(Vec3d origin, ServerWorld world, double areaOfEffect) {
         Box boundingBox = new Box(
